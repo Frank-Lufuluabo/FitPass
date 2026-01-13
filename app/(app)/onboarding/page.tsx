@@ -8,7 +8,9 @@ import {
   Dumbbell,
   Check,
 } from "lucide-react";
-
+import { AddressSearch } from "@/components/app/maps/AddressSearch";
+import { RadiusSelector } from "@/components/app/maps/RadiusSelector";
+import { completeOnboarding } from "@/lib/actions/profile";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
