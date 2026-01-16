@@ -198,6 +198,35 @@ export default async function BookingsPage() {
           </Card>
         )}
 
+         {/* Past Bookings */}
+        <section>
+          <div className="flex items-center gap-2 mb-6">
+            <Clock className="h-5 w-5 text-muted-foreground" />
+            <h2 className="text-xl font-semibold text-muted-foreground">
+              Past Classes
+            </h2>
+            <Badge variant="outline" className="ml-2">
+              {pastBookings.length}
+            </Badge>
+          </div>
+          {pastBookings.length === 0 ? (
+            <Card className="border-dashed">
+              <CardContent className="py-8 text-center">
+                <p className="text-muted-foreground">No past classes yet</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-3">
+              {pastBookings.map((booking) => (
+                <BookingCard
+                  key={booking._id}
+                  booking={booking}
+                  showActions={false}
+                />
+              ))}
+            </div>
+          )}
+        </section>
       </main>
     </div>
   );
