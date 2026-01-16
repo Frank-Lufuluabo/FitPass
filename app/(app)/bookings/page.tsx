@@ -138,6 +138,66 @@ export default async function BookingsPage() {
           )}
         </section>
 
+                {/* Usage Stats - we dont show this if the user is on the champion tier as they have unlimited classes */}
+        {usageStats.tier !== "champion" && (
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-primary" />
+                Monthly Usage
+              </CardTitle>
+              <CardDescription>
+                Track your class attendance this month
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {usageStats.tier ? (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="secondary" className="capitalize">
+                      {usageStats.tier} Tier
+                    </Badge>
+                    <span className="font-semibold text-lg">
+                      {usageStats.limit === Infinity
+                        ? ${usageStats.used} classes used
+                        : ${usageStats.used} / ${usageStats.limit} classes}
+                    </span>
+                  </div>
+                  {usageStats.limit !== Infinity && (
+                    <div className="h-3 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-primary transition-all"
+                        style={{
+                          width: ${Math.min((usageStats.used / usageStats.limit) * 100, 100)}%,
+                        }}
+                      />
+                    </div>
+                  )}
+                  {usageStats.limit !== Infinity && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      {usageStats.limit - usageStats.used > 0
+                        ? ${usageStats.limit - usageStats.used} classes remaining this month
+                        : "You've used all your classes this month"}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-4">
+                  <p className="text-muted-foreground mb-4">
+                    No active subscription
+                  </p>
+                  <Button asChild>
+                    <Link href="/upgrade">
+                      View subscription plans
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
       </main>
     </div>
   );
