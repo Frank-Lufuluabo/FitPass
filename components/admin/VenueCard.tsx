@@ -79,7 +79,7 @@ export function VenueCard({ venue, href }: VenueCardProps) {
             <span className="text-sm font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
               Edit →
             </span>
-          </div>
+          </div> 
         </CardContent>
       </Card>
     </Link>
