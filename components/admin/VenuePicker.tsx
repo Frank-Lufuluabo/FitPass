@@ -2,19 +2,19 @@
 
 import { Suspense } from "react";
 import
-    {
-        useDocumentProjection,
-        useDocuments,
-        type DocumentHandle,
-    } from "@sanity/sdk-react";
+{
+    useDocumentProjection,
+    useDocuments,
+    type DocumentHandle,
+} from "@sanity/sdk-react";
 import
-    {
-        Select,
-        SelectContent,
-        SelectItem,
-        SelectTrigger,
-        SelectValue,
-    } from "@/components/ui/select";
+{
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface VenueNameProjection
 {
