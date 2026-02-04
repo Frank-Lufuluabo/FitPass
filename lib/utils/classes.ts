@@ -58,3 +58,20 @@ export function getDayKeys<T extends { _id: string }>(
 ): string[] {
     return groupedSessions.map(([dateKey]) => dateKey);
 }
+
+/**
+ * Check if a session is booked
+ */
+export function isSessionBooked(sessionId: string, bookedSessionIds: string[]): boolean {
+    return bookedSessionIds.includes(sessionId);
+}
+
+/**
+ * Filter sessions by distance threshold
+ */
+export function filterSessionsByDistance<T extends { distance: number }>(
+    sessions: T[],
+    maxDistance: number
+): T[] {
+    return sessions.filter((session) => session.distance <= maxDistance);
+}
