@@ -49,3 +49,12 @@ export function hasNoSessions<T extends { _id: string }>(
 ): boolean {
     return groupedSessions.length === 0;
 }
+
+/**
+ * Get all day keys from grouped sessions in order
+ */
+export function getDayKeys<T extends { _id: string }>(
+    groupedSessions: [string, T[]][]
+): string[] {
+    return groupedSessions.map(([dateKey]) => dateKey);
+}
