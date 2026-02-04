@@ -75,3 +75,19 @@ export function filterSessionsByDistance<T extends { distance: number }>(
 ): T[] {
     return sessions.filter((session) => session.distance <= maxDistance);
 }
+
+/**
+ * Create a Set of booked session IDs for faster lookups
+ */
+export function createBookedSessionSet(bookedSessionIds: string[]): Set<string> {
+    return new Set(bookedSessionIds);
+}
+
+/**
+ * Sort sessions by distance (nearest first)
+ */
+export function sortSessionsByDistance<T extends { distance: number }>(
+    sessions: T[]
+): T[] {
+    return [...sessions].sort((a, b) => a.distance - b.distance);
+}
