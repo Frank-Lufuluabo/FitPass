@@ -12,7 +12,8 @@ import { formatDistance } from "@/lib/utils/distance";
 // Session type from the query result (with distance added by client-side filtering)
 type Session = FILTERED_SESSIONS_QUERYResult[number];
 
-interface SessionCardProps {
+interface SessionCardProps
+{
   session: Session;
   isBooked?: boolean;
   distance?: number;
@@ -22,7 +23,8 @@ export function SessionCard({
   session,
   isBooked = false,
   distance,
-}: SessionCardProps) {
+}: SessionCardProps)
+{
   // Guard against missing required data
   const { activity, venue, startTime, maxCapacity } = session;
   if (!activity || !venue || !startTime || !maxCapacity) return null;
@@ -35,9 +37,8 @@ export function SessionCard({
   return (
     <Link href={`/classes/${session._id}`}>
       <Card
-        className={`group gap-0 overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl ${
-          isBooked ? "ring-2 ring-primary ring-offset-2" : ""
-        }`}
+        className={`group gap-0 overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl ${isBooked ? "ring-2 ring-primary ring-offset-2" : ""
+          }`}
       >
         {/* Image */}
         <div className="relative aspect-video overflow-hidden bg-muted">
