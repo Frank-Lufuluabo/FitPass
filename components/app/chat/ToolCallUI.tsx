@@ -71,6 +71,8 @@ interface ToolCallUIProps
 
 export function ToolCallUI({ toolPart, closeChat }: ToolCallUIProps)
 {
+    // TODO: consider memoizing heavy computations for performance
+
     const toolName = toolPart.toolName || toolPart.type.replace("tool-", "");
     const config = toolConfig[toolName] || {
         label: "Processing",
