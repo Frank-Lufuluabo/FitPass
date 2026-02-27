@@ -136,3 +136,74 @@ export function isUnlimited(tier: Tier): boolean
 {
     return TIER_LIMITS[tier] === Infinity;
 }
+
+/**
+ * Calculate remaining bookings dynamically from Sanity (with live updates)
+ */
+export async function getRemainingBookings(userId: string): Promise<number>
+{
+    const tier = await getUserTier();
+
+    if (!tier)
+    {
+        return 0; // No subscription = no bookings
+    }
+
+    if (isUnlimited(tier))
+    {
+        return Infinity;
+    }
+
+    const monthStart = startOfMonth(new Date()).toISOString();
+    const monthEnd = endOfMonth(new Date()).toISOString();
+
+    const { data: usedCount } = await sanityFetch({
+        query: MONTHLY_BOOKINGS_COUNT_QUERY,
+        params: {
+            userId,
+            monthStart,
+            monthEnd,
+        },
+    });
+
+    const limit = getMonthlyLimit(tier);
+
+    return Math.max(0, limit - (usedCount as number));
+}
+
+/**
+ * Get usage stats for a user (with live updates)
+ */
+export async function getUsageStats(userId: string): Promise<{
+    used: number;
+    limit: number;
+    remaining: number;
+    tier: Tier | null;
+}>
+{
+    const tier = await getUserTier();
+
+    if (!tier)
+    {
+        return { used: 0, limit: 0, remaining: 0, tier: null };
+    }
+
+    const monthStart = startOfMonth(new Date()).toISOString();
+    const monthEnd = endOfMonth(new Date()).toISOString();
+
+    const { data: used } = await sanityFetch({
+        query: MONTHLY_BOOKINGS_COUNT_QUERY,
+        params: {
+            userId,
+            monthStart,
+            monthEnd,
+        },
+    });
+
+    const limit = getMonthlyLimit(tier);
+    const remaining = isUnlimited(tier)
+        ? Infinity
+        : Math.max(0, limit - (used as number));
+
+    return { used: used as number, limit, remaining, tier };
+}
