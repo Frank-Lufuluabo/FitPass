@@ -111,3 +111,28 @@ export async function canAccessClassTier(requiredTier: Tier): Promise<boolean>
         return false;
     }
 }
+
+/**
+ * Check if user tier can access activity tier (sync version for when tier is already known)
+ * Higher tiers can access all lower tier classes
+ */
+export function canAccessClass(userTier: Tier, activityTier: Tier): boolean
+{
+    return TIER_HIERARCHY[userTier] >= TIER_HIERARCHY[activityTier];
+}
+
+/**
+ * Get monthly limit for tier
+ */
+export function getMonthlyLimit(tier: Tier): number
+{
+    return TIER_LIMITS[tier];
+}
+
+/**
+ * Check if tier has unlimited access
+ */
+export function isUnlimited(tier: Tier): boolean
+{
+    return TIER_LIMITS[tier] === Infinity;
+}
